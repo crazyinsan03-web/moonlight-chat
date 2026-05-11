@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Friend</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            background:#0f172a;
+            color:white;
+            padding:20px;
+        }
+
+        .container{
+            max-width:420px;
+            margin:auto;
+        }
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .top-bar{
+            display:flex;
+            align-items:center;
+            margin-bottom:25px;
+        }
+
+        .back-btn{
+            width:45px;
+            height:45px;
+            border-radius:50%;
+            background:#1e293b;
+            color:white;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-decoration:none;
+            font-size:22px;
+            margin-right:15px;
+            transition:0.3s;
+        }
+
+        .back-btn:hover{
+            background:#334155;
+        }
+
+        .top-bar h1{
+            font-size:26px;
+        }
+
+        /* =========================
+           SEARCH CARD
+        ========================= */
+
+        .search-card{
+            background:#111827;
+            padding:25px;
+            border-radius:25px;
+            box-shadow:0 0 20px rgba(0,0,0,0.3);
+        }
+
+        .search-card h2{
+            margin-bottom:10px;
+            font-size:24px;
+        }
+
+        .search-card p{
+            color:#94a3b8;
+            margin-bottom:25px;
+            font-size:14px;
+        }
+
+        .input-box{
+            margin-bottom:20px;
+        }
+
+        .input-box label{
+            display:block;
+            margin-bottom:8px;
+            color:#dbe7ff;
+            font-size:14px;
+        }
+
+        .input-box input{
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:16px;
+            outline:none;
+            background:#1e293b;
+            color:white;
+            font-size:15px;
+        }
+
+        .input-box input:focus{
+            box-shadow:0 0 12px rgba(0,114,255,0.5);
+        }
+
+        .add-btn{
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:16px;
+            background:linear-gradient(135deg,#00c6ff,#0072ff);
+            color:white;
+            font-size:17px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:0.3s;
+            box-shadow:0 0 15px rgba(0,114,255,0.4);
+        }
+
+        .add-btn:hover{
+            transform:translateY(-2px);
+        }
+
+        /* =========================
+           USER LIST
+        ========================= */
+
+        .friend-preview{
+            margin-top:20px;
+            background:#1e293b;
+            padding:16px;
+            border-radius:18px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            transition:0.3s;
+        }
+
+        .friend-preview:hover{
+            background:#334155;
+        }
+
+        .friend-info{
+            display:flex;
+            align-items:center;
+        }
+
+        .friend-img{
+            width:55px;
+            height:55px;
+            border-radius:50%;
+            background:linear-gradient(135deg,#00c6ff,#0072ff);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:22px;
+            font-weight:bold;
+            margin-right:15px;
+        }
+
+        .friend-text h3{
+            margin-bottom:4px;
+        }
+
+        .friend-text p{
+            color:#94a3b8;
+            font-size:13px;
+        }
+
+        .send-btn{
+            padding:10px 16px;
+            border:none;
+            border-radius:12px;
+            background:#2563eb;
+            color:white;
+            cursor:pointer;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .send-btn:hover{
+            background:#1d4ed8;
+        }
+
+        .empty-box{
+            margin-top:20px;
+            background:#1e293b;
+            padding:18px;
+            border-radius:18px;
+            text-align:center;
+            color:#94a3b8;
+        }
+
+        @media(max-width:480px){
+
+            body{
+                padding:15px;
+            }
+
+            .search-card{
+                padding:22px 18px;
+            }
+
+            .top-bar h1{
+                font-size:22px;
+            }
+
+            .friend-preview{
+                flex-direction:column;
+                align-items:flex-start;
+                gap:15px;
+            }
+
+            .send-btn{
+                width:100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- =========================
+             TOP BAR
+        ========================= -->
+
+        <div class="top-bar">
+
+            <a href="/home" class="back-btn">
+                ←
+            </a>
+
+            <h1>Add Friend</h1>
+
+        </div>
+
+        <!-- =========================
+             SEARCH CARD
+        ========================= -->
+
+        <div class="search-card">
+
+            <h2>Find Friends 👋</h2>
+
+            <p>
+                Search users and add them to your chat list
+            </p>
+
+            <!-- =========================
+                 SEARCH FORM
+            ========================= -->
+
+            <form method="POST">
+
+                <div class="input-box">
+
+                    <label>Search Username</label>
+
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Enter username..."
+                        required
+                    >
+
+                </div>
+
+                <button class="add-btn">
+                    Search Friend
+                </button>
+
+            </form>
+
+            <!-- =========================
+                 SEARCH RESULTS
+            ========================= -->
+
+            {% for user in users %}
+
+            <div class="friend-preview">
+
+                <div class="friend-info">
+
+                    <div class="friend-img">
+                        {{ user[0][0] }}
+                    </div>
+
+                    <div class="friend-text">
+
+                        <h3 style="color:white;">
+                            {{ user[0] }}
+                        </h3>
+
+                        <p>
+                            MoonLight User
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <a
+                    href="/add/{{ user[0] }}"
+                    style="text-decoration:none;"
+                >
+
+                    <button class="send-btn">
+                        Add
+                    </button>
+
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+            <!-- =========================
+                 EMPTY MESSAGE
+            ========================= -->
+
+            {% if users|length == 0 %}
+
+            <div class="empty-box">
+
+                No users found 🔍
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

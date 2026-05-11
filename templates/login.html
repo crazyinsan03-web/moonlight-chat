@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoonLight Chat</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:linear-gradient(135deg,#001f54,#034078,#1282a2);
+            padding:20px;
+            overflow:hidden;
+        }
+
+        .login-box{
+            width:100%;
+            max-width:380px;
+            background:rgba(255,255,255,0.12);
+            backdrop-filter:blur(14px);
+            border:1px solid rgba(255,255,255,0.18);
+            padding:35px 25px;
+            border-radius:24px;
+            box-shadow:
+            0 10px 30px rgba(0,0,0,0.35),
+            0 0 20px rgba(255,255,255,0.08);
+            text-align:center;
+            color:white;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .login-box::before{
+            content:'';
+            position:absolute;
+            top:-50%;
+            left:-50%;
+            width:200%;
+            height:200%;
+            background:linear-gradient(
+                120deg,
+                transparent,
+                rgba(255,255,255,0.08),
+                transparent
+            );
+            transform:rotate(25deg);
+        }
+
+        .logo{
+            width:90px;
+            height:90px;
+            margin:auto;
+            margin-bottom:18px;
+            border-radius:50%;
+            background:linear-gradient(135deg,#00c6ff,#0072ff);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:38px;
+            font-weight:bold;
+            box-shadow:0 0 18px rgba(0,114,255,0.7);
+            position:relative;
+            z-index:2;
+        }
+
+        h1{
+            font-size:32px;
+            margin-bottom:8px;
+            font-weight:bold;
+            position:relative;
+            z-index:2;
+        }
+
+        .subtitle{
+            color:#dbe7ff;
+            margin-bottom:30px;
+            font-size:14px;
+            position:relative;
+            z-index:2;
+        }
+
+        .input-box{
+            margin-bottom:18px;
+            text-align:left;
+            position:relative;
+            z-index:2;
+        }
+
+        .input-box label{
+            display:block;
+            margin-bottom:8px;
+            font-size:14px;
+            color:#e4ecff;
+        }
+
+        .input-box input{
+            width:100%;
+            padding:15px;
+            border:none;
+            outline:none;
+            border-radius:14px;
+            background:rgba(255,255,255,0.15);
+            color:white;
+            font-size:15px;
+            border:1px solid rgba(255,255,255,0.1);
+            transition:all 0.3s ease;
+        }
+
+        .input-box input::placeholder{
+            color:#d6e2ff;
+        }
+
+        .input-box input:focus{
+            border:1px solid #4da3ff;
+            box-shadow:0 0 14px rgba(77,163,255,0.7);
+            background:rgba(255,255,255,0.18);
+        }
+
+        .login-btn{
+            width:100%;
+            padding:15px;
+            border:none;
+            border-radius:15px;
+            background:linear-gradient(135deg,#00c6ff,#0072ff);
+            color:white;
+            font-size:17px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:all 0.3s ease;
+            margin-top:8px;
+            box-shadow:0 0 15px rgba(0,114,255,0.5);
+            position:relative;
+            z-index:2;
+        }
+
+        .login-btn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 0 22px rgba(0,114,255,0.9);
+        }
+
+        .login-btn:active{
+            transform:scale(0.98);
+        }
+
+        .signup-link{
+            margin-top:22px;
+            font-size:14px;
+            color:#dbe7ff;
+            position:relative;
+            z-index:2;
+        }
+
+        .signup-link a{
+            color:#ffffff;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        .signup-link a:hover{
+            text-decoration:underline;
+        }
+
+        .extra-links{
+            margin-top:14px;
+            font-size:13px;
+            color:#dbe7ff;
+            position:relative;
+            z-index:2;
+        }
+
+        .extra-links a{
+            color:#9ddcff;
+            text-decoration:none;
+        }
+
+        .extra-links a:hover{
+            text-decoration:underline;
+        }
+
+        @media(max-width:480px){
+
+            body{
+                padding:15px;
+            }
+
+            .login-box{
+                padding:30px 20px;
+                border-radius:20px;
+            }
+
+            .logo{
+                width:75px;
+                height:75px;
+                font-size:30px;
+            }
+
+            h1{
+                font-size:27px;
+            }
+
+            .input-box input{
+                padding:14px;
+                font-size:14px;
+            }
+
+            .login-btn{
+                padding:14px;
+                font-size:16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <form class="login-box" method="POST">
+
+        <div class="logo">
+            M
+        </div>
+
+        <h1>MoonLight Chat</h1>
+
+        <p class="subtitle">
+            Fast • Secure • Premium Chat Experience
+        </p>
+
+        <div class="input-box">
+
+            <label>Phone Number</label>
+
+            <input 
+                type="text"
+                name="phone"
+                placeholder="Enter phone number"
+                required
+            >
+
+        </div>
+
+        <div class="input-box">
+
+            <label>Password</label>
+
+            <input 
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+        </div>
+
+        <button class="login-btn">
+            Login
+        </button>
+
+        <div class="signup-link">
+
+            New User?
+
+            <a href="/signup">
+                Create Account
+            </a>
+
+        </div>
+
+        <div class="extra-links">
+
+            <a href="#">
+                Forgot Password?
+            </a>
+
+        </div>
+
+    </form>
+
+</body>
+
+</html>

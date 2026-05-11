@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MoonLight Chat</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#0f172a;
+            color:white;
+            min-height:100vh;
+        }
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .top-bar{
+            width:100%;
+            padding:18px;
+            background:#111c44;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            position:sticky;
+            top:0;
+            z-index:100;
+            box-shadow:0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .top-left h1{
+            font-size:24px;
+            margin-bottom:3px;
+        }
+
+        .top-left p{
+            font-size:13px;
+            color:#94a3b8;
+        }
+
+        .profile{
+            width:48px;
+            height:48px;
+            border-radius:50%;
+            background:linear-gradient(135deg,#00c6ff,#0072ff);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-weight:bold;
+            font-size:20px;
+            box-shadow:0 0 12px rgba(0,114,255,0.5);
+            transition:0.3s;
+        }
+
+        .profile:hover{
+            transform:scale(1.05);
+        }
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        .search-box{
+            padding:15px;
+        }
+
+        .search-box input{
+            width:100%;
+            padding:14px;
+            border:none;
+            border-radius:14px;
+            background:#1e293b;
+            color:white;
+            font-size:15px;
+            outline:none;
+        }
+
+        .search-box input::placeholder{
+            color:#94a3b8;
+        }
+
+        .search-box input:focus{
+            box-shadow:0 0 12px rgba(0,114,255,0.5);
+        }
+
+        /* =========================
+           CHAT LIST
+        ========================= */
+
+        .chat-list{
+            padding:10px;
+            padding-bottom:90px;
+        }
+
+        .chat-card{
+            display:flex;
+            align-items:center;
+            background:#111827;
+            padding:14px;
+            border-radius:18px;
+            margin-bottom:12px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .chat-card:hover{
+            background:#1e293b;
+            transform:translateY(-2px);
+        }
+
+        .chat-img{
+            width:55px;
+            height:55px;
+            border-radius:50%;
+            background:linear-gradient(135deg,#00c6ff,#0072ff);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:22px;
+            font-weight:bold;
+            margin-right:15px;
+            flex-shrink:0;
+        }
+
+        .chat-info{
+            flex:1;
+            overflow:hidden;
+        }
+
+        .chat-info h3{
+            margin-bottom:5px;
+            font-size:18px;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+
+        .chat-info p{
+            color:#94a3b8;
+            font-size:14px;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+        }
+
+        .chat-right{
+            text-align:right;
+            margin-left:10px;
+        }
+
+        .time{
+            color:#94a3b8;
+            font-size:12px;
+            margin-bottom:8px;
+        }
+
+        .message-count{
+            width:22px;
+            height:22px;
+            border-radius:50%;
+            background:#2563eb;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:12px;
+            margin-left:auto;
+        }
+
+        /* =========================
+           EMPTY CHAT
+        ========================= */
+
+        .empty-box{
+            margin-top:50px;
+            text-align:center;
+            color:#94a3b8;
+        }
+
+        .empty-box h2{
+            color:white;
+            margin-bottom:10px;
+        }
+
+        /* =========================
+           FLOATING BUTTON
+        ========================= */
+
+        .floating-btn{
+            width:60px;
+            height:60px;
+            border-radius:50%;
+            background:linear-gradient(135deg,#00c6ff,#0072ff);
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            font-size:35px;
+            cursor:pointer;
+            box-shadow:0 0 15px rgba(0,114,255,0.5);
+            transition:0.3s;
+        }
+
+        .floating-btn:hover{
+            transform:scale(1.08);
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media(max-width:480px){
+
+            .top-bar{
+                padding:15px;
+            }
+
+            .top-left h1{
+                font-size:20px;
+            }
+
+            .chat-card{
+                padding:12px;
+            }
+
+            .chat-img{
+                width:50px;
+                height:50px;
+                font-size:20px;
+            }
+
+            .chat-info h3{
+                font-size:16px;
+            }
+
+            .chat-info p{
+                font-size:13px;
+            }
+
+            .floating-btn{
+                width:55px;
+                height:55px;
+                font-size:32px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =========================
+         TOP BAR
+    ========================= -->
+
+    <div class="top-bar">
+
+        <div class="top-left">
+
+            <h1>
+                MoonLight
+            </h1>
+
+            <p>
+                Welcome {{ username }}
+            </p>
+
+        </div>
+
+        <a
+            href="/profile"
+            style="text-decoration:none; color:white;"
+        >
+
+            <div class="profile">
+
+                {{ username[0] }}
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <!-- =========================
+         SEARCH
+    ========================= -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            placeholder="Search chats..."
+        >
+
+    </div>
+
+    <!-- =========================
+         CHAT LIST
+    ========================= -->
+
+    <div class="chat-list">
+
+        {% if users %}
+
+            {% for user in users %}
+
+            <a
+                href="/chat/{{ user.name }}"
+                style="text-decoration:none; color:white;"
+            >
+
+                <div class="chat-card">
+
+                    <div class="chat-img">
+
+                        {{ user.name[0] }}
+
+                    </div>
+
+                    <div class="chat-info">
+
+                        <h3>
+                            {{ user.name }}
+                        </h3>
+
+                        <p>
+                            {{ user.message }}
+                        </p>
+
+                    </div>
+
+                    <div class="chat-right">
+
+                        <div class="time">
+
+                            {{ user.time }}
+
+                        </div>
+
+                        <div class="message-count">
+                            1
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-box">
+
+                <h2>
+                    No Friends Added 😔
+                </h2>
+
+                <p>
+                    Tap + button and add friends
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <!-- =========================
+         ADD FRIEND BUTTON
+    ========================= -->
+
+    <a
+        href="/addfriend"
+        style="text-decoration:none;"
+    >
+
+        <div class="floating-btn">
+            +
+        </div>
+
+    </a>
+
+</body>
+
+</html>
